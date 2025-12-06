@@ -12,8 +12,11 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.core.components.SmartNavX;
+import frc.core.util.sysId.DrivetrainSysIdTuning;
 import frc.robot.constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
@@ -26,6 +29,7 @@ public class Drivetrain extends SubsystemBase {
     private Encoder encoderRight;
     private Encoder encoderLeft;
     private final SmartNavX navX;
+    private final DrivetrainSysIdTuning sysIdTunning;
 
     public Drivetrain() {
         backLeft = new WPI_TalonSRX(4);
@@ -61,6 +65,16 @@ public class Drivetrain extends SubsystemBase {
                 7,
                 6,
                 false);
+    
+        this.setEncodersDistancePerPulse();
+        this.resetEncoders();
+
+        if (DrivetrainConstants.SysId.isSysIdTunning) {
+          sysIdTunning = new DrivetrainSysIdTuning(this);
+          sysIdTunning.enable();
+        } else {
+          sysIdTunning = null;
+        }      
     }
     @Override
     public void periodic() {
@@ -153,5 +167,33 @@ public class Drivetrain extends SubsystemBase {
         this.getEncoderLeft().getDistance(),
         this.getEncoderRight().getDistance(),
         pose);
+  }
+
+    public DrivetrainSysIdTuning getSysIdTunning() {
+    return sysIdTunning;
+  }
+
+  public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
+    return this.sysIdTunning.sysIdQuasistatic(direction);
+  }
+
+  public Command sysIdDynamic(SysIdRoutine.Direction direction) {
+    return this.sysIdTunning.sysIdDynamic(direction);
+  }
+
+    public WPI_TalonSRX getMotorLeftBack() {
+    return backLeft;
+  }
+
+  public WPI_TalonSRX getMotorLeftFront() {
+    return frontLeft;
+  }
+
+  public WPI_VictorSPX getMotorRightBack() {
+    return backRight;
+  }
+
+  public WPI_TalonSRX getMotorRightFront() {
+    return frontRight;
   }
 }

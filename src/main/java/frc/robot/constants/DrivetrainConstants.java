@@ -55,6 +55,6 @@ public final class DrivetrainConstants {
   }
 
   public final class SysId {
-    public static final boolean isSysIdTunning = false;
+    public static final boolean isSysIdTunning = true;
   }
 }
