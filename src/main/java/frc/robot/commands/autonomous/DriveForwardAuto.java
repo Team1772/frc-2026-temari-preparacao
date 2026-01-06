@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class DriveForwardAuto extends SequentialCommandGroup {
   public DriveForwardAuto(Drivetrain drivetrain, TrajectoryBuilder trajectoryBuilder) {
     super.addCommands(
-        trajectoryBuilder.build(true, "1-forward")
+        trajectoryBuilder.build(true, "2-curve" ),
+        trajectoryBuilder.build(false, "2-curve-reverse")
     );
   }
 }

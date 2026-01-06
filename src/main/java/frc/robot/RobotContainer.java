@@ -17,7 +17,12 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   public RobotContainer() {
-    trajectoryBuilder = new TrajectoryBuilder(drivetrain, "1-forward");
+    trajectoryBuilder = new TrajectoryBuilder(
+      drivetrain, 
+    "1-forward", 
+    "2-curve",
+    "2-curve-reverse"
+    );
     configureBindings();
   }
   

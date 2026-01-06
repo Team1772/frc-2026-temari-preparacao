@@ -25,8 +25,8 @@ public class DrivetrainSysIdTuning {
 
   private SysIdRoutine sysIdRoutine;
   private WPI_TalonSRX motorLeftBack;
-  private WPI_VictorSPX motorRightBack;
-  private WPI_TalonSRX motorLeftFront;
+  private WPI_TalonSRX motorRightBack;
+  private WPI_VictorSPX motorLeftFront;
   private WPI_TalonSRX motorRightFront;
   private Encoder encoderLeft;
   private Encoder encoderRight;

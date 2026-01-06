@@ -27,7 +27,7 @@ public final class DrivetrainConstants {
   }
 
   public static final class Chassi {
-    public static final int wheelRadius = 2;
+    public static final int wheelRadius = 3;
   }
 
   public static final class Gains {

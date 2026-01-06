@@ -21,8 +21,8 @@ import frc.robot.constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
     private WPI_TalonSRX backLeft;
-    private WPI_VictorSPX backRight;
-    private WPI_TalonSRX frontLeft;
+    private WPI_TalonSRX backRight;
+    private WPI_VictorSPX frontLeft;
     private WPI_TalonSRX frontRight;
     private DifferentialDrive drive;
     private final DifferentialDriveOdometry odometry;
@@ -32,10 +32,10 @@ public class Drivetrain extends SubsystemBase {
     private final DrivetrainSysIdTuning sysIdTunning;
 
     public Drivetrain() {
-        backLeft = new WPI_TalonSRX(4);
-        backRight = new WPI_VictorSPX(1);
-        frontLeft = new WPI_TalonSRX(3);
-        frontRight = new WPI_TalonSRX(2);
+        backLeft = new WPI_TalonSRX(2);
+        backRight = new WPI_TalonSRX(3);
+        frontLeft = new WPI_VictorSPX(1);
+        frontRight = new WPI_TalonSRX(4);
 
         backLeft.setInverted(true);
         backRight.setInverted(false);
@@ -57,14 +57,14 @@ public class Drivetrain extends SubsystemBase {
             0);
 
         this.encoderLeft = new Encoder(
-                9,
-                8,
-                false);
-
-        this.encoderRight = new Encoder(
                 7,
                 6,
-                false);
+                true);
+
+        this.encoderRight = new Encoder(
+                9,
+                8,
+                true);
     
         this.setEncodersDistancePerPulse();
         this.resetEncoders();
@@ -124,10 +124,10 @@ public class Drivetrain extends SubsystemBase {
 
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
-        this.backLeft.setVoltage(leftVolts);
-        this.backRight.setVoltage(rightVolts);
-        this.frontLeft.setVoltage(leftVolts);
-        this.frontRight.setVoltage(rightVolts);
+        this.backLeft.setVoltage(-leftVolts);
+        this.backRight.setVoltage(-rightVolts);
+        this.frontLeft.setVoltage(-leftVolts);
+        this.frontRight.setVoltage(-rightVolts);
         System.out.println("LeftVolts " + leftVolts);
         System.out.println("RightVolts " + rightVolts);
     
@@ -185,11 +185,11 @@ public class Drivetrain extends SubsystemBase {
     return backLeft;
   }
 
-  public WPI_TalonSRX getMotorLeftFront() {
+  public WPI_VictorSPX getMotorLeftFront() {
     return frontLeft;
   }
 
-  public WPI_VictorSPX getMotorRightBack() {
+  public WPI_TalonSRX getMotorRightBack() {
     return backRight;
   }
 
